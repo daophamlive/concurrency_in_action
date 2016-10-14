@@ -21,11 +21,6 @@ void print_text()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//std::function<void()> function (print_text);
-	simplest_threadpool pool;
-	function_wrapper f(print_text);
-	 pool.submit(f);
-	
 
 	_getch();
 	return 0;

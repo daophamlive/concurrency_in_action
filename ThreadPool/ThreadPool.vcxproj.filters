@@ -36,6 +36,12 @@
     <ClInclude Include="join_threads.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="work_stealing_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
