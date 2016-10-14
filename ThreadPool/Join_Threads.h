@@ -2,19 +2,19 @@
 #include <vector>
 #include <thread>
 
-class Join_Threads
+class join_threads
 {
 private:
 	std::vector<std::thread>& m_threads;
 public:
-	explicit Join_Threads(std::vector<std::thread> &_threads):m_threads(_threads)
+	explicit join_threads(std::vector<std::thread> &_threads):m_threads(_threads)
 	{
 
 	}
 
-	~Join_Threads()
+	~join_threads()
 	{
-		for (size_t i =0; i< m_threads.size(); i++)
+		for (size_t i = 0; i< m_threads.size(); i++)
 		{
 			if(m_threads[i].joinable())
 			{
