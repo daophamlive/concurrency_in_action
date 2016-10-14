@@ -39,9 +39,9 @@ public:
 
 	void wait_and_pop(T &_value)
 	{
-		std::lock_guard<std::mutex> writelock(m_mutex);
+		std::unique_lock<std::mutex> writelock(m_mutex);
 		m_condition.wait(writelock, [this]{return !m_queue.empty();});
-		_value = m_queue.front();
+		_value = std::move(m_queue.front());
 		m_queue.pop();
 	}
 

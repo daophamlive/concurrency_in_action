@@ -6,7 +6,6 @@
 #include <functional>
 #include "simplest_threadpool.h"
 #include <conio.h>
-#include "Join_Threads.h"
 
 extern int text_count = 0;
 
@@ -18,17 +17,15 @@ void print_text()
 
 		std::cout << text_count << " ";
 	}
-	
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::function<void()> function (print_text);
+	//std::function<void()> function (print_text);
 	simplest_threadpool pool;
- 	for (int i = 0; i < 10; i ++)
- 	{
- 		pool.submit(function);
- 	}
+	function_wrapper f(print_text);
+	 pool.submit(f);
+	
 
 	_getch();
 	return 0;
