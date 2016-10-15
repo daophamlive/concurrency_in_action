@@ -9,8 +9,8 @@ template <typename T, typename Container = std::queue<T>>
 class threadsafe_queue
 {
 private:
-	Container m_queue;
 	mutable std::mutex m_mutex;
+	Container m_queue;
 	std::condition_variable m_condition;
 public:
 	threadsafe_queue(void)
@@ -30,10 +30,10 @@ public:
 		m_condition.notify_all();
 	}
 
-	void push(const T &_value)
+	void push(/*const */T _value)
 	{
 		std::lock_guard<std::mutex> writelock(m_mutex);
-		m_queue.push(_value);
+		m_queue.push(std::move(_value));
 		m_condition.notify_all();
 	}
 
@@ -54,7 +54,7 @@ public:
 			throw std::exception("Threadsafe queue is empty!");
 		}
 
-		_value = m_queue.front();
+		_value = std::move(m_queue.front());
 		m_queue.pop();
 	}
 
@@ -64,7 +64,7 @@ public:
 		if(m_queue.empty()) 
 			return false;
 
-		_value = m_queue.front();
+		_value = std::move(m_queue.front());
 		m_queue.pop();
 		return true;
 	}
@@ -78,12 +78,12 @@ public:
 			throw std::exception("Threadsafe queue is empty!");
 		}
 
-		std::shared_ptr<T> const sp_value(std::make_shared<T>(m_queue.front()));
+		std::shared_ptr<T>  sp_value(std::make_shared<T>(std::move(m_queue.front())));
 		m_queue.pop();
 		return sp_value;
 	}
 
-	bool empty()
+	bool empty() const
 	{
 		std::lock_guard<std::mutex> writelock(m_mutex);
 		bool emtpy_var = m_queue.empty();

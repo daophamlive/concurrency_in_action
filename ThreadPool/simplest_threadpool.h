@@ -2,9 +2,10 @@
 #include "threadsafe_queue.h"
 #include <atomic>
 #include <thread>
-#include "Join_Threads.h"
 #include <future>
 #include "function_wrapper.h"
+#include "Join_Threads.h"
+
 class simplest_threadpool
 {
 private:
