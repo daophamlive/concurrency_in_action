@@ -1,21 +1,38 @@
 #include <queue>
 #include <condition_variable>
 #include <memory>
-#include "message.h"
 namespace messaging
 {
-	
+	struct message_base
+	{
+		virtual ~message_base()
+		{}
+	};
+
+
+	template<typename Msg>
+	struct wrapped_message:
+		message_base
+	{
+		Msg m_contents;
+
+		explicit wrapped_message(Msg const &_contents): m_contents(_contents)
+		{
+
+		}
+	};
+
+
 	class message_queue
 	{
 	public:
 		message_queue();
 		~message_queue();
 
-		template<typename T>
-		std::shared_ptr<T> wait_and_pop()
+		std::shared_ptr<message_base> wait_and_pop()
 		{
 			std::unique_lock<std::mutex> writeLock(m_mutex);
-			m_condition.wait(writeLock,[]{ return !m_queue.empty(); });
+			m_condition.wait(writeLock,[&]{ return !m_queue.empty(); });
 			auto sp_message = std::move(m_queue.front());
 			m_queue.pop();
 			return sp_message;

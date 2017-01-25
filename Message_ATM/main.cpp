@@ -2,8 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "message_queue.h"
-
+#include "atm.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
 	return 0;
