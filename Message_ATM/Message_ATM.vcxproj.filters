@@ -36,7 +36,7 @@
     <ClInclude Include="withdraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="atm.h">
+    <ClInclude Include="bank_machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

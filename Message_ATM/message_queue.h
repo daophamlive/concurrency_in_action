@@ -26,8 +26,8 @@ namespace messaging
 	class message_queue
 	{
 	public:
-		message_queue();
-		~message_queue();
+		message_queue() {};
+		~message_queue() {};
 
 		std::shared_ptr<message_base> wait_and_pop()
 		{

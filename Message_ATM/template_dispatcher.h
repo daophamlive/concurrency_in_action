@@ -4,8 +4,8 @@ namespace messaging
 	template<typename PreviousDispatcher,typename Msg,typename Func>
 	class template_dispatcher
 	{
-		std::shared_ptr<message_queue>  m_sp_queue;
-		std::shared_ptr<PreviousDispatcher> m_sp_prev;
+		message_queue  *m_p_queue;
+		PreviousDispatcher *m_p_prev;
 		Func m_func;
 		bool m_chained;
 		/*template_dispatcher(template_dispatcher const&)=delete;
@@ -19,7 +19,7 @@ namespace messaging
 		{
 			for(;;)
 			{
-				auto msg=m_sp_queue->wait_and_pop();
+				auto msg=m_p_queue->wait_and_pop();
 				if(dispatch(msg))
 					break;
 			}
@@ -35,19 +35,19 @@ namespace messaging
 				}
 				else
 				{
-					return m_sp_prev->dispatch(_msg);
+					return m_p_prev->dispatch(_msg);
 				}
 		}
 	public:
 		template_dispatcher(template_dispatcher&& other):
-			m_sp_queue(other.m_sp_queue),m_sp_prev(other.m_sp_prev),m_func(std::move(other.m_func)),
+			m_p_queue(other.m_p_queue),m_p_prev(other.m_p_prev),m_func(std::move(other.m_func)),
 			m_chained(other.m_chained)
 		{
 			other.m_chained=true;
 		}
 
-		template_dispatcher(std::shared_ptr<message_queue> q_, std::shared_ptr<PreviousDispatcher>* prev_, Func&& f_):
-			m_sp_queue(q_),m_sp_prev(prev_),m_func(std::forward<Func>(f_)),m_chained(false)
+		template_dispatcher(message_queue *q_, PreviousDispatcher *prev_, Func&& f_):
+			m_p_queue(q_), m_p_prev(prev_),  m_func(std::forward<Func>(f_)), m_chained(false)
 		{
 			prev_->m_chained=true;
 		}
@@ -57,7 +57,7 @@ namespace messaging
 			handle(OtherFunc&& of)
 		{
 			return template_dispatcher<template_dispatcher, OtherMsg, OtherFunc>(
-				m_sp_queue,this,std::forward<OtherFunc>(of));
+				m_p_queue,this, std::forward<OtherFunc>(of));
 		}
 
 		~template_dispatcher() /*noexcept(false)*/
