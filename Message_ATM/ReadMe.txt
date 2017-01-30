@@ -1,40 +1,28 @@
-========================================================================
-    CONSOLE APPLICATION : Message_ATM Project Overview
-========================================================================
+--send object
+sender has a reference to the queue
+send message type T to queue
 
-AppWizard has created this Message_ATM application for you.
+--receiver object
+receiver has a queue
+cast to sender by creating a sender with reference to this queue
+wait function moves the reference of queue to depatcher
 
-This file contains a summary of what you will find in each of the files that
-make up your Message_ATM application.
+--dispatcher
+constructor creates get a pointer queue and make chain is false to wait and dispatcher
+handle creates a template_dispatcher with the queue, itself and forward a function
 
+wait and dispatch: wait a message input into queue and dispatch it
+dispatch : dynamic cast to WRAPPED_MESSAGE<CLOSE_QUEUE> if true throw a exception
 
-Message_ATM.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+--template_dispatcher
 
-Message_ATM.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
+dispatch : dynamic cast to WRAPPED_MESSAGE<MSG> then calling the function with content
+if return false call prev dispatch
 
-Message_ATM.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named Message_ATM.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
+-- atm object
+ - bank receiver
+ - interface hardware receiver
+ - atm receiver
+ 
+-create a sender with atm receiver
+ 

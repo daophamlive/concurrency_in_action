@@ -30,9 +30,6 @@
     <ClInclude Include="dispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="template_dispatcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="withdraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>

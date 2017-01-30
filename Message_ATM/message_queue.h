@@ -9,6 +9,8 @@ namespace messaging
 		{}
 	};
 
+	class close_queue
+	{};
 
 	template<typename Msg>
 	struct wrapped_message:

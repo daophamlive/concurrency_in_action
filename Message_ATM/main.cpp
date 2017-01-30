@@ -2,10 +2,25 @@
 //
 
 #include "stdafx.h"
+//#include "withdraw.h"
+//#include <iostream>
 #include "bank_machine.h"
 
+//class test_template
+//{
+//public:
+//	template</*typename Message,*/ typename otherMsg/*, typename Func*/ >
+//	void write_number(const otherMsg & func)
+//	{
+//		func();
+//	}
+//};
 int _tmain(int argc, _TCHAR* argv[])
 {
+	
+	/*test_template a;
+	a.write_number([]() { std::cout << "this is string number";  });
+	getchar();*/
 	bank_machine bank;
 	interface_machine interface_hardware;
 	atm machine(bank.get_sender(), interface_hardware.get_sender());
