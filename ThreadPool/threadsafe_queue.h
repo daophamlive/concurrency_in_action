@@ -30,7 +30,7 @@ public:
 		m_condition.notify_all();
 	}
 
-	void push(/*const */T _value)
+	void push(T _value)
 	{
 		std::lock_guard<std::mutex> writelock(m_mutex);
 		m_queue.push(std::move(_value));

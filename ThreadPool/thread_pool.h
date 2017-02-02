@@ -6,6 +6,7 @@
 #include <memory>
 #include <atomic>
 #include <future>
+#include <afxtls_.h>
 
 class thread_pool
 {
@@ -15,8 +16,8 @@ class thread_pool
 	std::vector<std::unique_ptr<work_stealing_queue> > queues;
 	std::vector<std::thread> threads;
 	join_threads joiner;
-	static  work_stealing_queue* local_work_queue;
-	static  unsigned my_index;
+	static THREAD_LOCAL  work_stealing_queue* local_work_queue;
+	static THREAD_LOCAL  unsigned my_index;
 	void worker_thread(unsigned my_index_)
 	{
 		my_index=my_index_;
