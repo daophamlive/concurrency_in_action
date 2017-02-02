@@ -357,17 +357,22 @@ std::list<T> parallel_quick_sort(std::list<T> input)
 	return s.do_sort(input);
 }
 
+#include "Future_Promise.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::list<int> list1 ;
-	for (int i = 10000; i > 0; i--)
-	{
-		list1.push_back(i);
-	}
-	std::list<int> list2 = parallel_quick_sort<int> (list1);
+// 	std::list<int> list1 ;
+// 	for (int i = 10000; i > 0; i--)
+// 	{
+// 		list1.push_back(i);
+// 	}
+// 	std::list<int> list2 = parallel_quick_sort<int> (list1);
+// 
+// 	std::for_each(list2.begin(), list2.end(),[](int const &i){std::cout<<" "<<i << "";});
 
-	std::for_each(list2.begin(), list2.end(),[](int const &i){std::cout<<" "<<i << "";});
+	father_thread();
 
+	getchar();
 
 }
 //int _tmain(int argc, _TCHAR* argv[])
